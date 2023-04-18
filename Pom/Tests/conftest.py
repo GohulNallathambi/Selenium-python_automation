@@ -10,10 +10,10 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 @pytest.fixture(scope="class")
 def setup(request):
-    options = Options()
-    options.add_argument("--ignore-ssl-errors=yes")
-    options.add_argument("--ignore-certificate-errors")
-    options.headless=True
+#     options = Options()
+#     options.add_argument("--ignore-ssl-errors=yes")
+#     options.add_argument("--ignore-certificate-errors")
+#     options.headless=True
     # capabilities = options.capabilities
     driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
     driver.maximize_window()
