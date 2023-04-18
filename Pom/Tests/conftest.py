@@ -10,18 +10,24 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 @pytest.fixture(scope="class")
 # def setup(request):
-#     chrome_options = Options()
-#     chrome_options.add_argument('--ignore-certificate-errors')
-#     driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=chrome_options)
+#     options = Options()
+#     options.add_argument("--ignore-ssl-errors=yes")
+#     options.add_argument("--ignore-certificate-errors")
+#     options.headless=True
+#     # capabilities = options.capabilities
+#     driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(),options=options)
 #     driver.maximize_window()
 #     request.cls.driver = driver
 #     yield
 #     driver.close()
+
 def setup(request, browser, url):
-    chrome_options = Options()
-    chrome_options.add_argument('--ignore-certificate-errors')
     if browser == "chromium":
-        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=chrome_options)
+        options = Options()
+        options.add_argument("--ignore-ssl-errors=yes")
+        options.add_argument("--ignore-certificate-errors")
+        capabilities = options.capabilities
+        driver = webdriver.Chrome(executable_path=TestData.Executable_Path, options=options)
     elif browser == "firefox":
         driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
     elif browser == "edge":
@@ -32,12 +38,12 @@ def setup(request, browser, url):
     driver.maximize_window()
     request.cls.driver = driver
     yield
-    driver.close()
+    driver.quit()
 
 
 def pytest_addoption(parser):
-    parser.addoption("--web-browser")
-    parser.addoption("--url")
+    parser.addoption("--web-browser", default="chrome", help="Browser to run the tests in (chrome, firefox, edge)")
+    parser.addoption("--url", default="http://localhost:8000", help="Base URL for the application being tested")
 
 
 @pytest.fixture(scope="class", autouse=True)
