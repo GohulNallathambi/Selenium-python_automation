@@ -19,7 +19,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 #     driver.close()
 
 def setup(request, browser, url):
-    if browser == "chromium":
+    if browser == "chrome":
         options = webdriver.ChromeOptions()
         options.add_argument("--ignore-certificate-errors")
         capabilities = options.to_capabilities()
@@ -39,13 +39,13 @@ def setup(request, browser, url):
 
 
 def pytest_addoption(parser):
-    parser.addoption("--browser", default="chrome", help="Browser to run the tests in (chrome, firefox, edge)")
+    parser.addoption("--web-browser", default="chrome", help="Browser to run the tests in (chrome, firefox, edge)")
     parser.addoption("--url", default="http://localhost:8080", help="Base URL for the application being tested")
 
 
 @pytest.fixture(scope="class", autouse=True)
 def browser(request):
-    return request.config.getoption("--browser")
+    return request.config.getoption("--web-browser")
 
 
 @pytest.fixture(scope="class", autouse=True)
