@@ -39,13 +39,13 @@ def setup(request, browser, url):
 
 
 def pytest_addoption(parser):
-    parser.addoption("--web-browser", default="chrome", help="Browser to run the tests in (chrome, firefox, edge)")
+    parser.addoption("--browser", default="chrome", help="Browser to run the tests in (chrome, firefox, edge)")
     parser.addoption("--url", default="http://localhost:8080", help="Base URL for the application being tested")
 
 
 @pytest.fixture(scope="class", autouse=True)
 def browser(request):
-    return request.config.getoption("--web-browser")
+    return request.config.getoption("--browser")
 
 
 @pytest.fixture(scope="class", autouse=True)
