@@ -19,7 +19,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 #     driver.close()
 
 def setup(request, browser, url):
-    if browser == "chrome":
+    if browser == "chromium":
         options = webdriver.ChromeOptions()
         options.add_argument("--ignore-certificate-errors")
         capabilities = options.to_capabilities()
