@@ -11,7 +11,7 @@ class LoginPage(BaseDriver):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
-        # self.driver.get(TestData.BASE_URL)
+        self.driver.get(TestData.BASE_URL)
 
     def test_do_login(self):
         self.driver.find_element(By.XPATH, "//input[@placeholder='Enter Username']").send_keys(TestData.USER_NAME)
