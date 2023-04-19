@@ -9,33 +9,33 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 
 @pytest.fixture(scope="class")
-def setup(request):
-    options = Options()
-    options.accept_insecure_certs = True
-    driver = webdriver.Edge(executable_path=EdgeChromiumDriverManager().install(), options=options)
-    driver.maximize_window()
-    request.cls.driver = driver
-    yield
-    driver.close()
-
-# def setup(request, browser, url):
-#     if browser == "chromium":
-#         options = Options()
-#         options.add_argument("--ignore-ssl-errors=yes")
-#         options.add_argument("--ignore-certificate-errors")
-#         capabilities = options.capabilities
-#         driver = webdriver.Chrome(executable_path=TestData.Executable_Path, options=options)
-#     elif browser == "firefox":
-#         driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
-#     elif browser == "edge":
-#         options = Options()
-#         options.accept_insecure_certs = True
-#         driver = webdriver.Edge(executable_path=EdgeChromiumDriverManager().install(), options=options)
-#     driver.get(url)
+# def setup(request):
+#     options = Options()
+#     options.accept_insecure_certs = True
+#     driver = webdriver.Edge(executable_path=EdgeChromiumDriverManager().install(), options=options)
 #     driver.maximize_window()
 #     request.cls.driver = driver
 #     yield
-#     driver.quit()
+#     driver.close()
+
+def setup(request, browser, url):
+    if browser == "chromium":
+        options = Options()
+        options.add_argument("--ignore-ssl-errors=yes")
+        options.add_argument("--ignore-certificate-errors")
+        capabilities = options.capabilities
+        driver = webdriver.Chrome(executable_path=TestData.Executable_Path, options=options)
+    elif browser == "firefox":
+        driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+    elif browser == "edge":
+        options = Options()
+        options.accept_insecure_certs = True
+        driver = webdriver.Edge(executable_path=EdgeChromiumDriverManager().install(), options=options)
+    driver.get(url)
+    driver.maximize_window()
+    request.cls.driver = driver
+    yield
+    driver.quit()
 
 
 def pytest_addoption(parser):
