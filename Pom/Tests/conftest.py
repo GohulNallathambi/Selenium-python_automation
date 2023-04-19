@@ -7,33 +7,35 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
 @pytest.fixture(scope="class")
-# def setup(request):
-#     options = Options()
-#     options.accept_insecure_certs = True
-#     driver = webdriver.Edge(executable_path=EdgeChromiumDriverManager().install(), options=options)
-#     driver.maximize_window()
-#     request.cls.driver = driver
-#     yield
-#     driver.close()
-
-def setup(request, browser, url):
-    if browser == "chrome":
-        options = webdriver.ChromeOptions()
-        options.add_argument("--ignore-certificate-errors")
-        capabilities = options.to_capabilities()
-        capabilities['acceptInsecureCerts'] = True
-        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), desired_capabilities=capabilities)
-    elif browser == "firefox":
-        driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
-    elif browser == "edge":
-        options = Options
-        options.accept_insecure_certs = True
-        driver = webdriver.Edge(executable_path=EdgeChromiumDriverManager().install(), options=options)
-    driver.get(url)
+def setup(request):
+    options = webdriver.ChromeOptions()
+    options.add_argument("--ignore-certificate-errors")
+    capabilities = options.to_capabilities()
+    capabilities['acceptInsecureCerts'] = True
+    driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), desired_capabilities=capabilities)
     driver.maximize_window()
     request.cls.driver = driver
     yield
-    driver.quit()
+    driver.close()
+
+# def setup(request, browser, url):
+#     if browser == "chrome":
+#         options = webdriver.ChromeOptions()
+#         options.add_argument("--ignore-certificate-errors")
+#         capabilities = options.to_capabilities()
+#         capabilities['acceptInsecureCerts'] = True
+#         driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), desired_capabilities=capabilities)
+#     elif browser == "firefox":
+#         driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+#     elif browser == "edge":
+#         options = Options
+#         options.accept_insecure_certs = True
+#         driver = webdriver.Edge(executable_path=EdgeChromiumDriverManager().install(), options=options)
+#     driver.get(url)
+#     driver.maximize_window()
+#     request.cls.driver = driver
+#     yield
+#     driver.quit()
 
 
 def pytest_addoption(parser):
