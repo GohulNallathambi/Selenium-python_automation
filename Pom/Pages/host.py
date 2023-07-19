@@ -12,7 +12,7 @@ class HostPage(BaseDriver):
     def __init__(self, driver):
         super().__init__(driver)
         self.driver = driver
-        self.driver.get(TestData.BASE_URL)
+        
 
     def host_click(self, name):
         self.driver.find_element(By.XPATH, "//span[contains(text(),'Hosts')]").click()
