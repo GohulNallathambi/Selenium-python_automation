@@ -12,4 +12,4 @@ class Test_Host:
         host = HostPage(self.driver)
         login = LoginPage(self.driver)
         login.test_do_login()
-        host.host_click(name="Gohul")
+        host.host_alert()
