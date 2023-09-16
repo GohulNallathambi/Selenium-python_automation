@@ -1,9 +1,10 @@
 import pytest
 from selenium import webdriver
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.edge.options import Options
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.edge.service import Service as EdgeService
 from webdriver_manager.chrome import ChromeDriverManager
+from webdrivermanager import EdgeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
 @pytest.fixture(scope="class")
@@ -22,9 +23,8 @@ def setup(request, browser, url):
     if browser == "chrome":
         options = webdriver.ChromeOptions()
         options.add_argument("--ignore-certificate-errors")
-        capabilities = options.to_capabilities()
-        capabilities['acceptInsecureCerts'] = True
-        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), desired_capabilities=capabilities)
+        options.accept_insecure_certs = True
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
     elif browser == "firefox":
         driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
     elif browser == "edge":
