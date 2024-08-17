@@ -24,7 +24,7 @@ class HostPage(BaseDriver):
         time.sleep(2)
 
     def host_alert(self):
-        self.driver.find_element(By.XPATH, "//div[@class='row']/div[3]/div/a/div/div/div").click()
+        self.driver.find_element(By.XPATH, "//*[@id='Alerts']/a/span[2]").click()
         time.sleep(5)
         self.driver.find_element(By.XPATH,"//*[contains(text(),'Results per page:')]/select/option[4]").click()
         time.sleep(2)
