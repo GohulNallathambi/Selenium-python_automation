@@ -24,8 +24,7 @@ class HostPage(BaseDriver):
         time.sleep(2)
 
     def host_alert(self):
-        self.driver.find_element(By.XPATH,"//*[//*[@id='Alerts']/a/span[2]]").click()
-        self.driver.find_element(By.XPATH, "//*[@id='alerts_table_length']/label/ng-container/select").click()
+        self.driver.find_element(By.XPATH, "//*[@id='div_rule']/div/div/div/div[1]/div[1]/div/span[1]").click()
         time.sleep(5)
         self.driver.find_element(By.XPATH,"//*[contains(text(),'Results per page:')]/select/option[4]").click()
         time.sleep(2)
